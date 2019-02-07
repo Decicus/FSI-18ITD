@@ -67,6 +67,50 @@ Når du har navigert deg fram til denne mappen, velg filen `MySql.Data.dll`:
 
 Trykk deretter på "OK" og `Connector/NET` for MySQL vil være tilgjengelig for bruk i programmet ditt.
 
-## Steg 3:
+### Lage en ny klasse for tilkobling til MySQL
+For å gjøre koden litt ryddigere, lager vi en klasse som inneholder koden for å koble til MySQL og sende SQL for å hente ut data.
+
+Trykk på `Shift+Alt+C` for å lage en ny klasse (`Class`). Dette vil jeg da kalle for `DatabaseConnection.cs`.
+![](Images/LeggTilDatabaseClass.png)
+
+Når du har laget denne klassen, bør den åpne i en ny fane i Visual Studio. Det første vi må gjøre er å gjøre C# klar over at vi skal bruke MySQL her.
+
+Øverst i koden er det noen linjer som begynner på `using`. Du kan la de eksisterende linjene være, men mellom linjene som starter med `using` og linjen som starter med `namespace`, legg til en ny linje hvor det står `using MySql.Data.MySqlClient;`  
+I mitt eksempel vil dette se slik ut:  
+![](Images/UsingMySqlClient.png)
+
+Videre skal vi legge inn kode for å autentisere mot MySQL serveren, åpne og lukke tilkoblingen til MySQL serveren.
+
+Innenfor `class`en din, må du definere tre ting. Et `MySqlConnection` variabel som inneholder tilkoblingsinformasjonen din til MySQL-serveren (serveradresse, brukernavn, passord og databasenavnet) og to metoder (`void`) kalt `OpenConnection()` og `CloseConnection()`.  
+Denne koden ser da slik ut:
+```csharp
+class DatabaseConnection
+{
+    // Database server, brukernavn, passord og databasenavn
+    // `server=localhost` definerer hvilken server du skal koble til.
+    // `user id=root` definerer brukeren som vi skal koble til serveren med. For enkelthetens skyld bruker jeg "root", men i et produksjonssystem bør dette være en egen bruker.
+    // `password=root123` er passordet til brukeren vi bruker
+    // `database=student2018` er databasenavnet
+    MySqlConnection connectionString = new MySqlConnection("server=localhost;user id=root;password=root123;database=student2018");
+
+    // Åpner tilkoblingen (og holder den oppe) til MySQL server
+    public void OpenConnection()
+    {
+        connectionString.Open();
+    }
+
+    // "Lukker" (avslutter) tilkoblingen til MySQL server
+    public void CloseConnection()
+    {
+        connectionString.Close();
+    }
+}
+```
+
+**Pass på at du ikke inkluderer en ekstra `class DatabaseConnection`.**  
+Se bildet nedenfor for sammenligning:  
+![](Images/MySQLDatabaseConnectionClass.png)
+
+## Steg 3: Oppsett av brukergrensesnittet
 
 [MySQL Installer]: https://dev.mysql.com/downloads/installer/#downloads
