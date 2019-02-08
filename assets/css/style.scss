@@ -4,7 +4,7 @@
 @import "{{ site.theme }}";
 
 $content-width: 100%;
-.page-header, .main-content {
+.wrapper {
     max-width: -webkit-calc(#{$content-width});
     max-width: calc(#{$content-width});
 }

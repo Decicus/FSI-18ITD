@@ -62,7 +62,7 @@ Dette kan du gjøre ved å gå på høyre side av Visual Studio, høyre-klikke p
 ![](Images/ConnectorLeggTilReferanse.png)
 
 I det nye vinduet som kommer opp, trykk på "Browse" nederst og bla deg fram til der `Connector/NET` er installert. Standardlokalisering for dette er `C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2`.  
-Når du har navigert deg fram til denne mappen, velg filen `MySql.Data.dll`:
+Når du har navigert deg fram til denne mappen, velg filen `MySql.Data.dll`:  
 ![](Images/ConnectorVelgMySqlDll.png)
 
 Trykk deretter på "OK" og `Connector/NET` for MySQL vil være tilgjengelig for bruk i programmet ditt.
