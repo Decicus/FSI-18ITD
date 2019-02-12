@@ -26,19 +26,19 @@ Linken bør automatisk "bla deg" nedover på siden til en del av siden som heter
 
 Det har ikke så mye å si hvilken av disse du velger å laste ned, men i dette eksempelet tar jeg det første valget (`mysql-installer-web-community-8.0.15.0.msi` - 16.4M).  
 Du vil bli sendt til en ny side som heter "Begin Your Download" og som spør deg om å registrere en konto eller logge inn.  
-Bla litt lenger ned til du finner en link som sier "No thanks, just start my download". Trykk på denne:
+Bla litt lenger ned til du finner en link som sier "No thanks, just start my download". Trykk på denne:  
 ![](Images/MySQLInstallerDownload2.png)
 
 ### Start installasjon av `Connector/NET`
 
-Når du starter denne installasjonsfilen, bør den se slik ut:
+Når du starter denne installasjonsfilen, bør den se slik ut:  
 ![](Images/MySQLInstallerConnector.png)
 
 Naviger deg gjennom `MySQL Connectors -> Connector/NET -> Connector/NET 8.0` og trykk på `Connector/NET 8.0.13` (eller lignende) for å markere dette valget.  
-Deretter trykker du på den grønne pilen i midten slik at dette valget "flyttes" over til høyre side.
+Deretter trykker du på den grønne pilen i midten slik at dette valget "flyttes" over til høyre side.  
 ![](Images/MySQLInstallerConnector2.png)
 
-Deretter kan du trykke på "Next" og du vil komme til et nytt vindu som bør se slik ut:
+Deretter kan du trykke på "Next" og du vil komme til et nytt vindu som bør se slik ut:  
 ![](Images/MySQLInstallerConnector3.png)
 
 Trykk "Execute" og den vil installere biblioteket `Connector/NET`. Når denne er ferdig kan du trykke "Next" og til slutt "Finish".
@@ -58,11 +58,11 @@ Navnet på dette prosjektet har ikke så mye å si, men i dette tilfellet brukte
 
 ### Legg til `Connector/NET` som referanse i prosjektet
 For at du skal kunne bruke biblioteket `Connector/NET` etter det har blitt installert, må du legge det til som en referanse i prosjektet ditt.  
-Dette kan du gjøre ved å gå på høyre side av Visual Studio, høyre-klikke på "References" og deretter "Add reference":
+Dette kan du gjøre ved å gå på høyre side av Visual Studio, høyre-klikke på "References" og deretter "Add reference":  
 ![](Images/ConnectorLeggTilReferanse.png)
 
 I det nye vinduet som kommer opp, trykk på "Browse" nederst og bla deg fram til der `Connector/NET` er installert. Standardlokalisering for dette er `C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2`.  
-Når du har navigert deg fram til denne mappen, velg filen `MySql.Data.dll`:
+Når du har navigert deg fram til denne mappen, velg filen `MySql.Data.dll`:  
 ![](Images/ConnectorVelgMySqlDll.png)
 
 Trykk deretter på "OK" og `Connector/NET` for MySQL vil være tilgjengelig for bruk i programmet ditt.
@@ -70,7 +70,7 @@ Trykk deretter på "OK" og `Connector/NET` for MySQL vil være tilgjengelig for 
 ### Lage en ny klasse for tilkobling til MySQL
 For å gjøre koden litt ryddigere, lager vi en klasse som inneholder koden for å koble til MySQL og sende SQL for å hente ut data.
 
-Trykk på `Shift+Alt+C` for å lage en ny klasse (`Class`). Dette vil jeg da kalle for `DatabaseConnection.cs`.
+Trykk på `Shift+Alt+C` for å lage en ny klasse (`Class`). Dette vil jeg da kalle for `DatabaseConnection.cs`.  
 ![](Images/LeggTilDatabaseClass.png)
 
 Når du har laget denne klassen, bør den åpne i en ny fane i Visual Studio. Det første vi må gjøre er å gjøre C# klar over at vi skal bruke MySQL her.
