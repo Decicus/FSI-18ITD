@@ -112,5 +112,10 @@ Se bildet nedenfor for sammenligning:
 ![](Images/MySQLDatabaseConnectionClass.png)
 
 ## Steg 3: Oppsett av brukergrensesnittet
+Det første jeg gjør er å sette en ny vindustittel.  
+Dette er helt valgfritt, men vinduet vil da få et litt bedre navn. Det spiller ingen rolle hva du setter dette til.  
+Tittelen vil da vises oppe i venstre hjørne av vinduet du lager.  
+![](Images/FormTitleText.png)
+
 
 [MySQL Installer]: https://dev.mysql.com/downloads/installer/#downloads
