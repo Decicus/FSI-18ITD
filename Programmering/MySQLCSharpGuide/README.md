@@ -311,8 +311,9 @@ Dette bør da se slik ut:
 
 ## Steg 5: Start programmet.
 
-Du bør nå være ferdig med selve programmet. Det eneste du trenger å gjøre for å teste, er å trykke på "Start" på toppen av vinduet.  
-Pass på at MySQL-serveren kjører. Har du denne lokalt, starter du opp MySQL Workbench.
+Du bør nå være ferdig med selve programmet. Det eneste du trenger å gjøre for å teste, er å trykke på "Start" på toppen av vinduet.
+
+**Pass på at MySQL-serveren kjører.** Har du denne lokalt, starter du opp MySQL Workbench og sjekker om dette kjører via `Instance -> Startup / Shutdown`.
 
 Når programmet kjører trenger du bare å trykke på knappen (`Oppdater tabell`) og programmet vil hente ut og vise dataen på skjermen din.  
 ![Program view data](Images/VSProgramViewData.png)
