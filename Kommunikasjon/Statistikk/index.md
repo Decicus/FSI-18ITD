@@ -1,28 +1,33 @@
 # Bebygde landbrukseiendommer per fylke
 
-<div id="landbrukseiendommer">
-| Fylkenavn | Bebygde landbrukseiendommer |
-| :------: | :-------------------------: |
-| Oslo    | 124 |
-| Finnmark    | 3162 |
-| Vestfold    | 4181 |
-| Aust-Agder  | 4977 |
-| Østfold | 5997 |
-| Akershus    | 6658 |
-| Vest-Agder  | 6680 |
-| Telemark    | 7504 |
-| Nord-Trøndelag  | 8632 |
-| Buskerud    | 8715 |
-| Rogaland    | 9470 |
-| Sogn og Fjordane    | 9773 |
-| Sør-Trøndelag   | 10104 |
-| Troms   | 10641 |
-| Hordaland   | 12725 |
-| Møre og Romsdal | 12951 |
-| Oppland | 13521 |
-| Hedmark | 14590 |
-| Nordland    | 16665 |
-</div>
+<table id="landbrukseiendommer">
+    <thead>
+        <tr>
+            <th>Fylkenavn</th><th>Bebygde landbrukseiendommer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Oslo</td><td>124</td></tr>
+        <tr><td>Finnmark</td><td>3162</td></tr>
+        <tr><td>Vestfold</td><td>4181</td></tr>
+        <tr><td>Aust-Agder </td><td>4977</td></tr>
+        <tr><td>Østfold</td><td>5997</td></tr>
+        <tr><td>Akershus</td><td>6658</td></tr>
+        <tr><td>Vest-Agder </td><td>6680</td></tr>
+        <tr><td>Telemark</td><td>7504</td></tr>
+        <tr><td>Nord-Trøndelag </td><td>8632</td></tr>
+        <tr><td>Buskerud</td><td>8715</td></tr>
+        <tr><td>Rogaland</td><td>9470</td></tr>
+        <tr><td>Sogn og Fjordane</td><td>9773</td></tr>
+        <tr><td>Sør-Trøndelag</td><td>10104</td></tr>
+        <tr><td>Troms</td><td>10641</td></tr>
+        <tr><td>Hordaland</td><td>12725</td></tr>
+        <tr><td>Møre og Romsdal</td><td>12951</td></tr>
+        <tr><td>Oppland</td><td>13521</td></tr>
+        <tr><td>Hedmark</td><td>14590</td></tr>
+        <tr><td>Nordland</td><td>16665</td></tr>
+    </tbody>
+</table>
 
 ## Antall landbrukseiendommer per fylke
 ![Line chart](./Linechart.png)
@@ -36,6 +41,6 @@
 
 <script type="text/javascript">
     $(document).ready(() => {
-        $('table', $('#landbrukseiendommer')).DataTable();
+        $('#landbrukseiendommer').DataTable();
     });
 </script>
