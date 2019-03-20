@@ -1,5 +1,27 @@
 # Bebygde landbrukseiendommer per fylke
 
+| Fylkenavn | Bebygde landbrukseiendommer |
+| :------: | :-------------------------: |
+| Oslo    | 124 |
+| Finnmark    | 3162 |
+| Vestfold    | 4181 |
+| Aust-Agder  | 4977 |
+| Østfold | 5997 |
+| Akershus    | 6658 |
+| Vest-Agder  | 6680 |
+| Telemark    | 7504 |
+| Nord-Trøndelag  | 8632 |
+| Buskerud    | 8715 |
+| Rogaland    | 9470 |
+| Sogn og Fjordane    | 9773 |
+| Sør-Trøndelag   | 10104 |
+| Troms   | 10641 |
+| Hordaland   | 12725 |
+| Møre og Romsdal | 12951 |
+| Oppland | 13521 |
+| Hedmark | 14590 |
+| Nordland    | 16665 |
+
 ![Line chart](./Linechart.png)
 
 ![Clustered chart](./Clusteredchart.png)
