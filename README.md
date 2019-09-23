@@ -1,12 +1,15 @@
 # FSI-18ITD
+
 Generelle dokumenter og konfigurasjon relatert til Fagskolen Innlandet
 
 ## Linker
 
-- [Fronter](https://fronter.com/opplandvgs/main.phtml)
-- [Canvas (Maskinvare osv.)](https://finn.instructure.com/)
+- [Canvas](https://finn.instructure.com/)
+- [Link til ISO-filer - Må være på det interne skolenettet](http://128.39.174.4/local/dreamspark)
+- [Excel formeloversettelse: Engelsk til norsk](/Excel)
 
 ## Timeplan
-F.o.m. 24. april 2019
 
-![Timeplan - F.o.m. 24. april 2019](https://i.alex.lol/2019-04-25_Jgcqsj.png)
+Fra 21. august 2019
+
+[![18IT-D Timeplan - Fra 21. august 2019](/assets/images/2019-09-23_JweJR0.png)](/assets/images/2019-09-23_JweJR0.png)

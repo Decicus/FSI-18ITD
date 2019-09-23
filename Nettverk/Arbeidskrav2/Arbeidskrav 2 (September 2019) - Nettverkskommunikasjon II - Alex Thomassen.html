@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Innhold</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body>
+        <p>Arbeidskrav 2 (September 2019) - Nettverkskommunikasjon II - Alex Thomassen</p>
+<h1 id="innhold">Innhold</h1>
+<ul>
+<li><a href="#innhold">Innhold</a></li>
+<li><a href="#1-planlegging-av-nettverk">1. Planlegging av nettverk</a>
+<ul>
+<li><a href="#offentlig-nett">Offentlig nett</a></li>
+<li><a href="#private-nett-bak-nat-salgforskning">Private nett bak NAT (Salg/Forskning)</a></li>
+<li><a href="#enhetsnavn-interfacenavn-og-ip-adresse">Enhetsnavn, interfacenavn og IP-adresse</a></li>
+<li><a href="#dhcp">DHCP</a></li>
+</ul>
+</li>
+<li><a href="#2-nat">2. NAT</a></li>
+<li><a href="#3-dhcp">3. DHCP</a></li>
+<li><a href="#5-hvor-lang-avstand-mener-eigrp-det-er-fra-router-5-til-public-server-nettet">5. Hvor lang avstand mener EIGRP det er fra router 5 til public-server nettet?</a></li>
+<li><a href="#6-hva-er-oppgaven-til-stp-i-det-switchede-nettverket-til-venstre">6. Hva er oppgaven til STP i det switchede nettverket til venstre</a></li>
+<li><a href="#7-hvilken-sikkerhet-gir-nat-oppsettet-p%c3%a5-router-5">7. Hvilken sikkerhet gir NAT-oppsettet på router 5?</a></li>
+<li><a href="#8-hva-slags-fordeler-gir-vlan-oppsettet-her-oss">8. Hva slags fordeler gir VLAN-oppsettet her oss?</a></li>
+<li><a href="#9-hvilken-vei-tar-en-pakke-fra-vlan-salg-til-public-nett-servere-hvordan-kan-du-verifisere-dette-fra-klienten">9. Hvilken vei tar en pakke fra VLAN salg til Public nett servere? Hvordan kan du verifisere dette fra klienten?</a></li>
+<li><a href="#10-beskriv-hvordan-du-verifiserer-det-samme-fra-router-0">10. Beskriv hvordan du verifiserer det samme fra router 0.</a></li>
+<li><a href="#11-p%c3%a5-hvilket-lag-i-osi-modellen-finner-vi-ip-adressering">11. På hvilket lag i OSI-modellen finner vi IP-adressering?</a></li>
+<li><a href="#12-forklar-prinsippet-med-encapsulation-i-forbindelse-med-nettverkskommunikasjon">12. Forklar prinsippet med Encapsulation i forbindelse med nettverkskommunikasjon.</a></li>
+<li><a href="#13-enheter-fra-vlan-salg-skal-kunne-pinge-servere-i-public-nett-de-andre-routerene-skal-ikke-kunne-gj%c3%b8re-dette-hvordan-vil-du-l%c3%b8se-det-gj%c3%b8r-og-forklar">13. Enheter fra VLAN salg skal kunne pinge servere i Public nett. De andre routerene skal ikke kunne gjøre dette. Hvordan vil du løse det? Gjør og forklar.</a></li>
+<li><a href="#14-enheter-i-vlan-forskning-skal-kunne-kj%c3%b8re-http-og-ftp-mot-server-i-vlan-salg-men-ikke-omvendt">14. Enheter i VLAN forskning skal kunne kjøre http og FTP mot server i VLAN salg, men ikke omvendt.</a></li>
+</ul>
+<h1 id="1-planlegging-av-nettverk">1. Planlegging av nettverk</h1>
+<p>For å kunne sette opp serial-link mellom Router0 og Router1 (begge er 2811), må det legges til et ekstra nettverkskort på begge routerne som heter <code>NM-4A/S</code>.</p>
+<h3 id="offentlig-nett">Offentlig nett</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Nettverksnavn</th>
+<th style="text-align:center">Nett-ID</th>
+<th style="text-align:center">Broadcast</th>
+<th style="text-align:center">Nettmaske</th>
+<th style="text-align:center">CIDR</th>
+<th style="text-align:center">Antall hosts</th>
+<th style="text-align:center">Første adresse</th>
+<th style="text-align:center">Siste adresse</th>
+<th style="text-align:center">Notat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Offentlig Servernett</td>
+<td style="text-align:center">220.82.12.0</td>
+<td style="text-align:center">220.82.12.31</td>
+<td style="text-align:center">255.255.255.224</td>
+<td style="text-align:center">27</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">220.82.12.1</td>
+<td style="text-align:center">220.82.12.30</td>
+<td style="text-align:center">Server-nett med 28 enheter</td>
+</tr>
+<tr>
+<td style="text-align:center">Offentlig R4-R1</td>
+<td style="text-align:center">220.82.12.32</td>
+<td style="text-align:center">220.82.12.35</td>
+<td style="text-align:center">255.255.255.252</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">220.82.12.33</td>
+<td style="text-align:center">220.82.12.34</td>
+<td style="text-align:center">Router4-Router1</td>
+</tr>
+<tr>
+<td style="text-align:center">Offentlig R1-R3</td>
+<td style="text-align:center">220.82.12.36</td>
+<td style="text-align:center">220.82.12.39</td>
+<td style="text-align:center">255.255.255.252</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">220.82.12.37</td>
+<td style="text-align:center">220.82.12.38</td>
+<td style="text-align:center">Router1-Router3</td>
+</tr>
+<tr>
+<td style="text-align:center">Offentlig R3-R2</td>
+<td style="text-align:center">220.82.12.40</td>
+<td style="text-align:center">220.82.12.43</td>
+<td style="text-align:center">255.255.255.252</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">220.82.12.41</td>
+<td style="text-align:center">220.82.12.42</td>
+<td style="text-align:center">Router3-Router2</td>
+</tr>
+<tr>
+<td style="text-align:center">Offentlig R2-R0</td>
+<td style="text-align:center">220.82.12.44</td>
+<td style="text-align:center">220.82.12.47</td>
+<td style="text-align:center">255.255.255.252</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">220.82.12.45</td>
+<td style="text-align:center">220.82.12.46</td>
+<td style="text-align:center">Router2-Router0</td>
+</tr>
+<tr>
+<td style="text-align:center">Offentlig R0-R5</td>
+<td style="text-align:center">220.82.12.48</td>
+<td style="text-align:center">220.82.12.51</td>
+<td style="text-align:center">255.255.255.252</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">220.82.12.49</td>
+<td style="text-align:center">220.82.12.50</td>
+<td style="text-align:center">Router0-Router5</td>
+</tr>
+<tr>
+<td style="text-align:center">Offentlig R0-R1</td>
+<td style="text-align:center">220.82.12.52</td>
+<td style="text-align:center">220.82.12.55</td>
+<td style="text-align:center">255.255.255.252</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">220.82.12.53</td>
+<td style="text-align:center">220.82.12.54</td>
+<td style="text-align:center">Router0-Router1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="private-nett-bak-nat-salgforskning">Private nett bak NAT (Salg/Forskning)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Nettverksnavn</th>
+<th style="text-align:center">Nett-ID</th>
+<th style="text-align:center">Broadcast</th>
+<th style="text-align:center">Nettmaske</th>
+<th style="text-align:center">CIDR</th>
+<th style="text-align:center">Antall hosts</th>
+<th style="text-align:center">Første adresse</th>
+<th style="text-align:center">Siste adresse</th>
+<th style="text-align:center">Notat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Privat Salg</td>
+<td style="text-align:center">10.0.0.0</td>
+<td style="text-align:center">10.0.0.127</td>
+<td style="text-align:center">255.255.255.128</td>
+<td style="text-align:center">25</td>
+<td style="text-align:center">126</td>
+<td style="text-align:center">10.0.0.1</td>
+<td style="text-align:center">10.0.0.126</td>
+<td style="text-align:center">VLAN Salg 80</td>
+</tr>
+<tr>
+<td style="text-align:center">Privat Forskning</td>
+<td style="text-align:center">10.0.0.128</td>
+<td style="text-align:center">10.0.0.255</td>
+<td style="text-align:center">255.255.255.128</td>
+<td style="text-align:center">25</td>
+<td style="text-align:center">126</td>
+<td style="text-align:center">10.0.0.129</td>
+<td style="text-align:center">10.0.0.254</td>
+<td style="text-align:center">VLAN Forskning 90</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enhetsnavn-interfacenavn-og-ip-adresse">Enhetsnavn, interfacenavn og IP-adresse</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Enhets- og interfacenavn</th>
+<th style="text-align:center">IP-adresse</th>
+<th style="text-align:center">Nettmaske</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Router4 FA0/1</td>
+<td style="text-align:center">220.82.12.1</td>
+<td style="text-align:center">255.255.255.224</td>
+</tr>
+<tr>
+<td style="text-align:center">FTP</td>
+<td style="text-align:center">220.82.12.10</td>
+<td style="text-align:center">255.255.255.224</td>
+</tr>
+<tr>
+<td style="text-align:center">WEB</td>
+<td style="text-align:center">220.82.12.20</td>
+<td style="text-align:center">255.255.255.224</td>
+</tr>
+<tr>
+<td style="text-align:center">DNS</td>
+<td style="text-align:center">220.82.12.30</td>
+<td style="text-align:center">255.255.255.224</td>
+</tr>
+<tr>
+<td style="text-align:center">Router4 FA0/0</td>
+<td style="text-align:center">220.82.12.33</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router1 FA0/1</td>
+<td style="text-align:center">220.82.12.34</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router1 FA0/0</td>
+<td style="text-align:center">220.82.12.37</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router3 FA0/1</td>
+<td style="text-align:center">220.82.12.38</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router3 FA0/0</td>
+<td style="text-align:center">220.82.12.41</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router2 FA0/1</td>
+<td style="text-align:center">220.82.12.42</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router2 FA0/0</td>
+<td style="text-align:center">220.82.12.45</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router0 FA0/0</td>
+<td style="text-align:center">220.82.12.46</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router0 FA0/1</td>
+<td style="text-align:center">220.82.12.49</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router5 FA0/0</td>
+<td style="text-align:center">220.82.12.50</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router0 SE1/0</td>
+<td style="text-align:center">220.82.12.53</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router1 SE1/0</td>
+<td style="text-align:center">220.82.12.54</td>
+<td style="text-align:center">255.255.255.252</td>
+</tr>
+<tr>
+<td style="text-align:center">Router5 FA0/1.80 (Salg)</td>
+<td style="text-align:center">10.0.0.1</td>
+<td style="text-align:center">255.255.255.128</td>
+</tr>
+<tr>
+<td style="text-align:center">Router5 FA0/1.90 (Forskning)</td>
+<td style="text-align:center">10.0.0.129</td>
+<td style="text-align:center">255.255.255.128</td>
+</tr>
+<tr>
+<td style="text-align:center">Server0 (Forskning)</td>
+<td style="text-align:center">10.0.0.135</td>
+<td style="text-align:center">255.255.255.128</td>
+</tr>
+<tr>
+<td style="text-align:center">Server1 (Salg)</td>
+<td style="text-align:center">10.0.0.5</td>
+<td style="text-align:center">255.255.255.128</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dhcp">DHCP</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Nettverk</th>
+<th style="text-align:center">Excluded range</th>
+<th style="text-align:center">DHCP Fra adresse</th>
+<th style="text-align:center">DHCP Til adresse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">10.0.0.0/25</td>
+<td style="text-align:center">10.0.0.1-9</td>
+<td style="text-align:center">10.0.0.10</td>
+<td style="text-align:center">10.0.0.126</td>
+</tr>
+<tr>
+<td style="text-align:center">10.0.0.128/25</td>
+<td style="text-align:center">10.0.0.129-139</td>
+<td style="text-align:center">10.0.0.140</td>
+<td style="text-align:center">10.0.0.254</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2-nat">2. NAT</h1>
+<p>Router5 er satt opp med NAT overload med <code>220.82.12.50</code> på utsiden av nettet.
+Access list er satt opp slik at bare salgsnettet har tilgang til å nå ut til public nett.</p>
+<h1 id="3-dhcp">3. DHCP</h1>
+<p>Router5 har 2 forskjellige DHCP pools som er til salgsnettet og forskningsnettet.</p>
+<p>Salgsnettet har <code>10.0.0.0/25</code> med reserverte adresser: <code>10.0.0.1-9</code> med <code>.1</code> som routeren.
+Forskningsnettet har <code>10.0.0.128/25</code> med reserverte adresser: <code>10.0.0.129-139</code> med <code>.129</code> som routeren.</p>
+<p>I tillegg har jeg tildelt DNS-serveren i fra public servernett som default DNS server i salgsnettet (<code>220.82.12.30</code>). Dette er da ikke gjort med forskningsnettet, siden forskningsnettet ikke når ut til public nett.</p>
+<h1 id="5-hvor-lang-avstand-mener-eigrp-det-er-fra-router-5-til-public-server-nettet">5. Hvor lang avstand mener EIGRP det er fra router 5 til public-server nettet?</h1>
+<p>I følge <code>show ip route</code> er &quot;distance&quot; <code>40960</code> til det offentlig servernettet.</p>
+<h1 id="6-hva-er-oppgaven-til-stp-i-det-switchede-nettverket-til-venstre">6. Hva er oppgaven til STP i det switchede nettverket til venstre</h1>
+<p>STP eller Spanning Tree Protocol er brukt hos switchene for å forhindre at frames går i en evig &quot;loop&quot; (blir sendt til enhver switch for evig).<br>
+Ved hjelp av STP kan vi også ha backup links mellom switcher, i tilfelle en link mellom switcher blir brutt.</p>
+<h1 id="7-hvilken-sikkerhet-gir-nat-oppsettet-p%c3%a5-router-5">7. Hvilken sikkerhet gir NAT-oppsettet på router 5?</h1>
+<p>Først og fremst trenger ikke det offentlig nettverket å vite om de interne IP-adressene innenfor nettverket, men det er også slik at bare VLAN <code>Salg</code> har tilgang til NAT og ikke enheter i forskningsnettet. Med andre ord, enheter i forskningsnettet har ikke tilgang til internett i det hele tatt.
+Sikkerheten ved det er at ingen fra utsiden (offentlige nettverket) har direkte tilgang til noen av enhetene på innsiden og eventuelle åpne porter for applikasjoner (f.eks. et web panel som går over HTTP) er ikke tilgjengelig med mindre det forwardes av routeren.</p>
+<h1 id="8-hva-slags-fordeler-gir-vlan-oppsettet-her-oss">8. Hva slags fordeler gir VLAN-oppsettet her oss?</h1>
+<p>Vi deler opp avdelingene i forskjellige nettverk og det tillater oss å definere access-list, slik at salgsavdelingen ikke har tilgang til absolutt hele forskningsnettet.
+Samtidig gir det også mulighet for oss å forhindre at forskningsnettet går ut mot internett.</p>
+<h1 id="9-hvilken-vei-tar-en-pakke-fra-vlan-salg-til-public-nett-servere-hvordan-kan-du-verifisere-dette-fra-klienten">9. Hvilken vei tar en pakke fra VLAN salg til Public nett servere? Hvordan kan du verifisere dette fra klienten?</h1>
+<p>Veien fra PC0 (Salg) til offentlig servernett er som følger:</p>
+<blockquote>
+<p>Router5 -&gt; Router0 -&gt; Router2 -&gt; Router3 -&gt; Router1 -&gt; Router4 -&gt; Offentlig servernett</p>
+</blockquote>
+<p>Dette kan vi verifisere fra en enhet i <code>Salg</code> ved hjelp av traceroute. På PC0 er dette: <code>tracert 220.82.12.30</code><br>
+IPen <code>220.82.12.30</code> er DNS-serveren i det offentlige servernettet.</p>
+<p><img src="file:///b:\Google Drive\Fagskolen - 18IT-D\Nettverk\Oppgave 2019-09-16 - Arbeidskrav 2\Export-Finished\_resources\18d54038db29486683200ac514c6bd08.png" alt="7e1afa7be22cfd793d23bf42fc4209b2.png"></p>
+<h1 id="10-beskriv-hvordan-du-verifiserer-det-samme-fra-router-0">10. Beskriv hvordan du verifiserer det samme fra router 0.</h1>
+<p>Det er nesten helt samme metode på router 0, vi kan bruke traceroute derfra også, men der er kommandoen <code>traceroute 220.82.12.30</code>.
+Alternativt kan vi også bruke <code>show ip route</code> for å vise hvordan routingtabellen ser ut.</p>
+<p><img src="file:///b:\Google Drive\Fagskolen - 18IT-D\Nettverk\Oppgave 2019-09-16 - Arbeidskrav 2\Export-Finished\_resources\e1b802969fb1413c935450045f0a2e55.png" alt="b89d422d4168cfdd91797cfe786c1bb9.png"></p>
+<h1 id="11-p%c3%a5-hvilket-lag-i-osi-modellen-finner-vi-ip-adressering">11. På hvilket lag i OSI-modellen finner vi IP-adressering?</h1>
+<p>IP-adressering (IPv4/IPv6) ligger på lag 3 i OSI-modellen. På lag 3 blir det sendt pakker bygd opp på følgende måte:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:left"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>IP Destination (Mål/Mottaker)</strong></td>
+<td style="text-align:center"><strong>IP Source (Kilde/Sender)</strong></td>
+<td style="text-align:left">Protokoll (TCP/UDP)</td>
+<td style="text-align:center">Data</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">I et NAT-nettverk vil source oversettes fra internt til eksternt nettverk.</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>Det er også på lag 3 hvor vi har protokollen ICMP, som brukes til traceroute/ping.</p>
+<h1 id="12-forklar-prinsippet-med-encapsulation-i-forbindelse-med-nettverkskommunikasjon">12. Forklar prinsippet med Encapsulation i forbindelse med nettverkskommunikasjon.</h1>
+<p>Encapsulation er at man &quot;pakker inn&quot; data ekstra informasjon for å sende det videre til de andre lagene i OSI-modellen.</p>
+<p>F.eks. vil TCP/UDP (lag 4) data videresendes til lag 3 hvor man legger til IP-informasjon (source/destination) før det sendes videre til lag 2.</p>
+<h1 id="13-enheter-fra-vlan-salg-skal-kunne-pinge-servere-i-public-nett-de-andre-routerene-skal-ikke-kunne-gj%c3%b8re-dette-hvordan-vil-du-l%c3%b8se-det-gj%c3%b8r-og-forklar">13. Enheter fra VLAN salg skal kunne pinge servere i Public nett. De andre routerene skal ikke kunne gjøre dette. Hvordan vil du løse det? Gjør og forklar.</h1>
+<p>Jeg brukte ACL (access lists) for å tillate spesifikk trafikk inn på offentlig servernett.
+Trafikken jeg bestemte meg for å tillate er: FTP, Web (HTTP), DNS og ICMP (ping/traceroute).</p>
+<p>Access list er satt til følgende:</p>
+<ul>
+<li>Tillat FTP fra alle</li>
+<li>Tillat WWW (HTTP) fra alle</li>
+<li>Tillat DNS fra alle</li>
+<li>Tillat ICMP fra 220.82.12.50 (Router5/NAT).</li>
+</ul>
+<p>I tillegg gikk jeg inn på interface <code>fa0/1</code> som &quot;peker mot&quot; det offentlige servernettet og satte access-list 110 til &quot;out&quot;, siden trafikken går ut mot det offentlige servernett: <code>ip access-group 110 out</code></p>
+<p>Nederst i access list er det en &quot;implicit deny&quot; for alt annet trafikk. Det vil si at alt annet enn det som er definert i access list blir droppet.
+I dette tilfellet vil all trafikk som ikke er FTP, HTTP, DNS eller ICMP (fra Router5) bli nektet tilgang inn til offentlig servernett.</p>
+<p>Eneste unntak er Router4, som allerede er på &quot;innsiden&quot; av det offentlige servernettet. Router4 har også mulighet til å pinge inn til det offentlige servernettet, men jeg så ingen grunn til å spesifikt blokkere for Router4.</p>
+<h1 id="14-enheter-i-vlan-forskning-skal-kunne-kj%c3%b8re-http-og-ftp-mot-server-i-vlan-salg-men-ikke-omvendt">14. Enheter i VLAN forskning skal kunne kjøre http og FTP mot server i VLAN salg, men ikke omvendt.</h1>
+<p>Jeg satte følgende ACL-regler som utgående trafikk mot VLAN 90 (subinterface fa0/1.90):</p>
+<ul>
+<li>Blokker FTP fra 10.0.0.0/25 til 10.0.0.128/25</li>
+<li>Blokker HTTP fra 10.0.0.0/25 til 10.0.0.128/25</li>
+<li>Tillat alt annet TCP (utenom HTTP/FTP) til 10.0.0.128/25</li>
+<li>(Implicit deny)</li>
+</ul>
+<p>Dette vil da blokkere HTTP/FTP trafikk mot hele salgsnettet. Jeg kunne alternativt ha blokkert for den ene serveren som står i salgsnettet (ved å spesifisere <code>host 10.0.0.5</code> i stedet for nettverket), men det ga mer mening å blokkere all slik trafikk inn til salg i tilfelle det kom nye servere med &quot;sensitiv&quot; informasjon.</p>
+
+    </body>
+    </html>
