@@ -7,6 +7,7 @@ Generelle dokumenter og konfigurasjon relatert til Fagskolen Innlandet
 - [Canvas](https://finn.instructure.com/)
 - [Link til ISO-filer - Må være på det interne skolenettet](http://128.39.174.4/local/dreamspark)
 - [Excel formeloversettelse: Engelsk til norsk](/Excel)
+- [Skolerute 2019-2020](/assets/Skolerute_2019-2020.pdf)
 
 ## Timeplan
 
