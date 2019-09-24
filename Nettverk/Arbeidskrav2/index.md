@@ -117,14 +117,14 @@ Veien fra PC0 (Salg) til offentlig servernett er som følger:
 Dette kan vi verifisere fra en enhet i `Salg` ved hjelp av traceroute. På PC0 er dette: `tracert 220.82.12.30`  
 IPen `220.82.12.30` er DNS-serveren i det offentlige servernettet.
 
-![7e1afa7be22cfd793d23bf42fc4209b2.png](_resources/18d54038db29486683200ac514c6bd08.png)
+![7e1afa7be22cfd793d23bf42fc4209b2.png](18d54038db29486683200ac514c6bd08.png)
 
 # 10. Beskriv hvordan du verifiserer det samme fra router 0.
 
 Det er nesten helt samme metode på router 0, vi kan bruke traceroute derfra også, men der er kommandoen `traceroute 220.82.12.30`.
 Alternativt kan vi også bruke `show ip route` for å vise hvordan routingtabellen ser ut.
 
-![b89d422d4168cfdd91797cfe786c1bb9.png](_resources/e1b802969fb1413c935450045f0a2e55.png)
+![b89d422d4168cfdd91797cfe786c1bb9.png](e1b802969fb1413c935450045f0a2e55.png)
 
 # 11. På hvilket lag i OSI-modellen finner vi IP-adressering?
 
