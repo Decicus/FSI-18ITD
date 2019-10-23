@@ -9,6 +9,7 @@ Generelle dokumenter og konfigurasjon relatert til Fagskolen Innlandet
 - [Excel formeloversettelse: Engelsk til norsk](/Excel)
 - [Skolerute 2019-2020](/assets/Skolerute_2019-2020.pdf)
 - [Link til Stian "LarsenJR" Larsen sin FSI side](https://fsi.larsenjr.no/)
+- [Ekstra mediafiler (bøker osv.)](https://media.chipset.no/dl/FSI/)
 
 ## Ukenummer:
 Ukenummer: <strong id="weeknumber"></strong>
