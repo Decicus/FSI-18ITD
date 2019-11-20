@@ -1,0 +1,7 @@
+* text=auto
+*.css linguist-vendored
+*.less linguist-vendored
+
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf

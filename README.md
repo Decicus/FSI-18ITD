@@ -16,23 +16,23 @@ Ukenummer: <strong id="weeknumber"></strong>
 
 ## Timeplan
 
-Fra 21. august 2019
+Litt usikkert:
 
-[![18IT-D Timeplan - Fra 21. august 2019](/assets/images/2019-09-23_JweJR0.png)](/assets/images/2019-09-23_JweJR0.png)
+[![18IT-D Timeplan](/assets/images/2019-11-20_jS8XiA.png)](/assets/images/2019-11-20_jS8XiA.png)
 
 <script type="text/javascript">
-	/**
-	 * Cheers mate: https://gist.github.com/IamSilviu/5899269#gistcomment-2773524
-	 */
-	Date.prototype.getWeek = function() {
-		const today = this;
-		const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
-		const pastDaysOfYear = (today - firstDayOfYear) / 86400000;
-		return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-	};
+    /**
+     * Cheers mate: https://gist.github.com/IamSilviu/5899269#gistcomment-2773524
+     */
+    Date.prototype.getWeek = function() {
+        const today = this;
+        const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+        const pastDaysOfYear = (today - firstDayOfYear) / 86400000;
+        return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+    };
 
-	window.addEventListener('DOMContentLoaded', () => {
-		const weekElement = document.getElementById('weeknumber');
-		weekElement.textContent = (new Date()).getWeek();
-	});
+    window.addEventListener('DOMContentLoaded', () => {
+        const weekElement = document.getElementById('weeknumber');
+        weekElement.textContent = (new Date()).getWeek();
+    });
 </script>
